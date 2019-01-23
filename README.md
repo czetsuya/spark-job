@@ -11,7 +11,7 @@ How to run Spark
 
 *Now let's try to run Spark by processing data from https://grouplens.org/datasets/movielens/100k/.
 
-## Example 2: Count the movies rated by n. For example rating 3 has 100 movies, etc.
+## Example 2: Compute the average rating given by a user.
 
 UserId MovieId Rating TimeStamp
 
