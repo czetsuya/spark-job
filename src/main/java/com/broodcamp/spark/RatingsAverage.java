@@ -21,10 +21,12 @@ public class RatingsAverage {
 	private static final Pattern TAB = Pattern.compile("\\t");
 
 	public static void main(String[] args) throws Exception {
+		
 		if (args.length < 1) {
 			System.err.println("Usage: RatingsAverage <file>");
 			System.exit(1);
 		}
+		
 		SparkConf sparkConf = new SparkConf().setAppName("RatingsAverage").setMaster("local[4]");
 		try (JavaSparkContext ctx = new JavaSparkContext(sparkConf)) {
 			JavaPairRDD<Object, Object> ratings = ctx.textFile(args[0], 4) //

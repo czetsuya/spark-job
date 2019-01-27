@@ -19,10 +19,12 @@ public class WordCounter {
 	private static final Pattern SPACE = Pattern.compile(" ");
 
 	public static void main(String[] args) throws Exception {
+		
 		if (args.length < 1) {
 			System.err.println("Usage: WordCounter <file>");
 			System.exit(1);
 		}
+		
 		SparkConf sparkConf = new SparkConf().setAppName("WordCounter").setMaster("local[4]");
 		try (JavaSparkContext ctx = new JavaSparkContext(sparkConf)) {
 			JavaPairRDD<String, Integer> wordStats = ctx.textFile(args[0], 4) //
