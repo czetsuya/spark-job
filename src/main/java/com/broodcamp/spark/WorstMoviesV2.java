@@ -40,7 +40,11 @@ public class WorstMoviesV2 {
 
 		Date startTime = new Date();
 		System.out.println("--------------------------------------START");
-		try (SparkSession spark = SparkSession.builder().appName("WorstMoviesV2").getOrCreate()) {
+		try (SparkSession spark = SparkSession.builder().enableHiveSupport().appName("WorstMoviesV2").getOrCreate()) {
+			// lookup
+			JavaRDD<String> namesLookup = spark.sparkContext().textFile(args[1], 4).toJavaRDD();
+			// (movieId, movieTitle)
+			JavaPairRDD<Integer, String> namesLookupPairRDD = namesLookup.mapToPair(p -> new Tuple2<>(Integer.parseInt(p.split("\\|")[0]), p.split("\\|")[1]));
 
 			Dataset<Row> movieRawDataset = spark.read() //
 					.option("header", "false") //
@@ -64,11 +68,6 @@ public class WorstMoviesV2 {
 			Dataset<Row> averageAndAcounts = counts.join(averageRatings, "movieId");
 
 			List<Row> topTen = averageAndAcounts.orderBy("rating").takeAsList(10);
-
-			// lookup
-			JavaRDD<String> namesLookup = spark.sparkContext().textFile(args[1], 4).toJavaRDD();
-			// (movieId, movieTitle)
-			JavaPairRDD<Integer, String> namesLookupPairRDD = namesLookup.mapToPair(p -> new Tuple2<>(Integer.parseInt(p.split("\\|")[0]), p.split("\\|")[1]));
 
 			topTen.stream().forEach(m -> {
 				String movieName = namesLookupPairRDD.filter(p -> p._1 == Integer.parseInt(m.get(0).toString())).first()._2;

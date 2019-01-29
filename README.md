@@ -30,3 +30,9 @@ UserId MovieId Rating TimeStamp
 ### Example 5: Get the square of each element in the set
 
 >spark-submit --class com.broodcamp.spark.NumberSquare --master local target/spark-job-0.0.1-SNAPSHOT.jar
+
+### Example 6. Movie recommendation
+
+>spark-submit --class com.broodcamp.spark.MovieRecommendationsALS --master local target/spark-job-0.0.1-SNAPSHOT.jar src/main/resources/u-ml.data src/main/resources/u.item
+
+>spark-submit --class com.broodcamp.spark.MovieRecommendationsALS2 --master local target/spark-job-0.0.1-SNAPSHOT.jar src/main/resources/sample_movielens_ratings.txt src/main/resources/u.item
