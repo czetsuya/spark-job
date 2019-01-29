@@ -25,6 +25,8 @@ UserId MovieId Rating TimeStamp
 
 >spark-submit --class com.broodcamp.spark.WorstMovies --master local target/spark-job-0.0.1-SNAPSHOT.jar src/main/resources/u.data src/main/resources/u.item
 
+>spark-submit --class com.broodcamp.spark.WorstMoviesV2 --master local target/spark-job-0.0.1-SNAPSHOT.jar src/main/resources/u.data src/main/resources/u.item
+
 ### Example 5: Get the square of each element in the set
 
 >spark-submit --class com.broodcamp.spark.NumberSquare --master local target/spark-job-0.0.1-SNAPSHOT.jar
