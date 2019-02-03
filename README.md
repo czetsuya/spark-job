@@ -36,3 +36,7 @@ UserId MovieId Rating TimeStamp
 >spark-submit --class com.broodcamp.spark.MovieRecommendationsALS --master local target/spark-job-0.0.1-SNAPSHOT.jar src/main/resources/u-ml.data src/main/resources/u.item
 
 >spark-submit --class com.broodcamp.spark.MovieRecommendationsALS2 --master local target/spark-job-0.0.1-SNAPSHOT.jar src/main/resources/sample_movielens_ratings.txt src/main/resources/u.item
+
+### Example 6. Cassandra integration
+
+>spark-submit --class com.broodcamp.spark.CassandraIntegration --packages com.datastax.spark:spark-cassandra-connector_2.11:2.4.0 --master local target/spark-job-0.0.1-SNAPSHOT.jar src/main/resources/u.user
