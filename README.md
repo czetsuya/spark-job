@@ -40,3 +40,7 @@ UserId MovieId Rating TimeStamp
 ### Example 6. Cassandra integration
 
 >spark-submit --class com.broodcamp.spark.CassandraIntegration --packages com.datastax.spark:spark-cassandra-connector_2.11:2.4.0 --master local target/spark-job-0.0.1-SNAPSHOT.jar src/main/resources/u.user
+
+### Example 7. MongoDB integration
+
+>spark-submit --class com.broodcamp.spark.MongoIntegration --packages org.mongodb.spark:mongo-spark-connector_2.11:2.4.0 --master local target/spark-job-0.0.1-SNAPSHOT.jar src/main/resources/u.user

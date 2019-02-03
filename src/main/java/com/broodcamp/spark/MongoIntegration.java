@@ -18,44 +18,44 @@ import com.broodcamp.spark.model.User;
  * This class is using Lombok plugin.
  * </p>
  * Create the keyspace and table.
+ * 
  * <pre>
  * create keyspace movielens with replication = { 'class': 'SimpleStrategy', 'replication_factor': '1' } and durable_writes=true;
  * use movielens;
  * create table users (user_id int, age int, gender text, occupation text, zip text, primary key (user_id));
- * </pre> 
+ * </pre>
  * 
  * @author Edward P. Legaspi
  */
-public class CassandraIntegration {
+public class MongoIntegration {
 
 	public static void main(String[] args) throws Exception {
 
 		if (args.length < 1) {
-			System.err.println("Usage: CassandraIntegration <file>");
+			System.err.println("Usage: MongoIntegration <file>");
 			System.exit(1);
 		}
 
 		Date startTime = new Date();
 		System.out.println("--------------------------------------START");
-		SparkConf sparkConf = new SparkConf().setAppName("CassandraIntegration");
+		SparkConf sparkConf = new SparkConf().setAppName("MongoIntegration");
 		sparkConf.set("spark.sql.crossJoin.enabled", "true");
-		sparkConf.set("spark.cassandra.connection.host", "127.0.0.1");
 
 		try (SparkSession spark = SparkSession.builder().enableHiveSupport().config(sparkConf).getOrCreate()) {
 			JavaRDD<User> usersRDD = spark.read().textFile(args[0]).javaRDD().map(User::parse);
 			Dataset<Row> users = spark.createDataFrame(usersRDD, User.class);
 
 			Map<String, String> options = new HashMap<>();
-			options.put("table", "users");
-			options.put("keyspace", "movielens");
+			options.put("uri", "mongodb://127.0.0.1/movielens.users");
 
 			users.write() //
-					.format("org.apache.spark.sql.cassandra") //
+					.format("com.mongodb.spark.sql.DefaultSource") //
 					.options(options) //
+					.mode("append") //
 					.save();
 
 			Dataset<Row> loadedUsers = spark.read() //
-					.format("org.apache.spark.sql.cassandra") //
+					.format("com.mongodb.spark.sql.DefaultSource") //
 					.options(options) //
 					.load() //
 			;
