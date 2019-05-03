@@ -13,7 +13,7 @@ import org.apache.spark.sql.SparkSession;
 import com.broodcamp.spark.model.User;
 
 /**
- * Insert data to Cassandra database.
+ * Insert data to Cassandra database. Make sure that you have a local instance of MongoDB.
  * <p>
  * This class is using Lombok plugin.
  * </p>

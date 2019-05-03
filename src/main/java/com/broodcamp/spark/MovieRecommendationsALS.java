@@ -19,7 +19,7 @@ import org.apache.spark.sql.types.DataTypes;
 import scala.Tuple2;
 
 /**
- * Create a user 0 who logs science fiction but hates drama.
+ * Create a user 0 who loves science fiction but hates drama.
  * 
  * @author Edward P. Legaspi
  */
